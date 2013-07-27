@@ -65,5 +65,10 @@ def home():
     renderers = [renderer.get_dict() for renderer in renderers if renderer is not None]
     return render_template('index.tmpl', renderers = renderers)
 
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.tmpl')
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
