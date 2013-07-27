@@ -28,7 +28,7 @@ roles_users = db.Table('roles_users',
         db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
         db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
-config = json.load('config.json')
+config = json.load(open('config.json'))
 
 class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
@@ -63,7 +63,7 @@ def home():
         for name, cls in inspect.getmembers(module, inspect.isclass):
             renderers.append(cls(config[name]))
     renderers = [renderer.get_dict() for renderer in renderers if renderer is not None]
-    return render_template('index.tmpl', renderers)
+    return render_template('index.tmpl', renderers = renderers)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

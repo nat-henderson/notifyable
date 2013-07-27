@@ -4,7 +4,7 @@ from api_readers import APIReaderDaemon
 from api_readers import *
 import json
 
-config = json.load('config.json')
+config = json.load(open('config.json'))
 
 class APIReaderDaemon(object):
     def __init__(self):
