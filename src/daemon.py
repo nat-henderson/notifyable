@@ -2,6 +2,9 @@ import inspect
 import api_readers
 from api_readers import APIReaderDaemon
 from api_readers import *
+import json
+
+config = json.load('config.json')
 
 class APIReaderDaemon(object):
     def __init__(self):

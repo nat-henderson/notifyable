@@ -5,6 +5,8 @@ from flask.ext.security import Security, SQLAlchemyUserDatastore, \
 from flask.ext.mail import Mail
 from renderers import *
 import os
+import json
+import inspect
 
 # Create app
 app = Flask(__name__)
@@ -25,6 +27,8 @@ db = SQLAlchemy(app)
 roles_users = db.Table('roles_users',
         db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
         db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+
+config = json.load('config.json')
 
 class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
@@ -47,9 +51,7 @@ security = Security(app, user_datastore)
 # Create a user to test with
 @app.before_first_request
 def create_user():
-    db.drop_all()
     db.create_all()
-    user_datastore.create_user(email='matt@nobien.net', password='password')
     db.session.commit()
 
 # Views
