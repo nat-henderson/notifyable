@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='jquery.isotope.min.js')}}"></script>
+{% endblock %}
+
+{% block content %}
+    {{ super () }}
+        <p>Huzzah!</p>
+{% endblock %}

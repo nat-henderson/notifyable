@@ -1,3 +1,4 @@
+import inspect
 from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
@@ -61,6 +62,11 @@ def dashboard():
 
 for endpoint in endpoints:
     app.register_blueprint(endpoint.blueprint)
+
+@app.route('/dashboard', methods=["GET"])
+@login_required
+def dashboard():
+    return render_template('dashboard.html')
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
