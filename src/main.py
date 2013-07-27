@@ -3,6 +3,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from flask.ext.mail import Mail
+from renderers import *
 import os
 
 # Create app
@@ -55,7 +56,12 @@ def create_user():
 @app.route('/')
 @login_required
 def home():
-    return render_template('index.html')
+    renderers = []
+    for _, module in inspect.getmembers(renderers, inspect.ismodule):
+        for name, cls in inspect.getmembers(module, inspect.isclass):
+            renderers.append(cls(config[name]))
+    renderers = [renderer.get_dict() for renderer in renderers if renderer is not None]
+    return render_template('index.tmpl', renderers)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
