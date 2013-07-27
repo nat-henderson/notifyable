@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
+from flask.ext.mail import Mail
 import os
 
 # Create app
@@ -13,6 +14,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'ap
 app.config['SECURITY_REGISTERABLE'] = True
 app.config['SECURITY_RECOVERABLE'] = True
 app.config['SECUTIY_CHANGEABLE'] = True
+app.config['SECURITY_CONFIRMABLE'] = False
+app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
 
 # Create database connection object
 db = SQLAlchemy(app)
