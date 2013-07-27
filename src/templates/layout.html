@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <title>Notifyable -- {% block title %}{% endblock %}</title>
+    <script src="{{ url_for('static', filename='jquery-2.0.3.min.js')}}"></script>
+    {% block scripts %}{% endblock %}
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>
