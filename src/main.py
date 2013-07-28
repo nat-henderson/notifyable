@@ -1,18 +1,14 @@
-import inspect
 from flask import Flask, render_template
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.assets import Environment, Bundle
+from flask import jsonify
+from flask.ext.assets import Environment
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from flask.ext.security.core import current_user
-from flask.ext.mail import Mail
 from endpoints import endpoints
 from models import db
 from models import *
 from sqlalchemyuri import sqlalchemyuri
-import os
 import json
-import inspect
 import sys
 
 # Create app
