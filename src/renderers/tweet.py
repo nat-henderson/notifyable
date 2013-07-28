@@ -14,7 +14,7 @@ def get_tweet(user_id):
     tweet = get_last_tweet(current_user.id)
 
     return json.dumps({'type' : 'text',
-            'color' : '000000',
+            'color' : '#1DADEA',
             'channel' : 'Twitter',
             'title' : tweet.author.name,
             'text' : tweet.text,

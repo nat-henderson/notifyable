@@ -8,13 +8,12 @@ status_renderer = Blueprint('status', __name__)
 def get_status(user_id):
     status = db.session.query(Status).order_by(Status.id.desc()).first()
     return json.dumps({'type' : 'text',
-            'color' : '#FF0000',
+            'color' : '#8A9EBF',
             'channel' : 'Facebook',
-            'title' : status.posted_by,
             'text' : status.status_text,
             'image' : status.pic_url,
             'meta': {
-                'text' : 'Facebook!'
+                'text' : status.posted_by,
                 'image': status.profile_pic
             }
         })
