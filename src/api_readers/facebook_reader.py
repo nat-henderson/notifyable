@@ -6,19 +6,9 @@ import time
 from models import Status
 
 class FacebookReader(APIReaderDaemon):
-    APP_ID = "1398970760322735"
-    APP_SECRET = "eee97fc2ad0ae9666a6f178932a09893"
-    REDIRECT_URL = "http://amagit.com:5000/"
-    SCOPE = "read_stream"
-
+    #testing on a hard-coded access_token
     access_tokens = ["CAAT4W0M4Xq8BAEqKediuZCztZC5XBrTlHJY0ZBVW9xuZB07lHlMKZAHHq1TsjBIyA69fMAsi6DscYJzY0v0KqWQzncvWc6wSXldexfMmatsnenBONetHXZAqoabmPIRwWEX6F86XiAMEorcHmNyRXIZCw2hUZBhhMZAgZD"]
     pagination_next = {}
-
-    def get_dialog_url(self):
-        return "http://www.facebook.com/dialog/oauth/?client_id="+self.APP_ID+"&redirect_uri="+self.REDIRECT_URL+"&scope="+self.SCOPE+"&state="+str(random.randint(1, 1000))
-        
-    def get_access_token_url(self, code):
-        return "https://graph.facebook.com/oauth/access_token?client_id="+self.APP_ID+"&redirect_uri="+self.REDIRECT_URL+"&client_secret="+self.APP_SECRET+"&code="+code
 
     def get_data(self, url):
         str=""
