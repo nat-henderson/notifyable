@@ -31,7 +31,7 @@ class TwitterReader(APIReaderDaemon):
     def start(self):
         auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
         auth.set_access_token(self.key, self.secret)
-        listener = TweetListener()
+        listener = TweetListener(self.user_id, self.session)
         listener.user_id = self.user_id
         listener.session = self.session
         self.stream = Stream(auth, listener)
