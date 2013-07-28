@@ -8,27 +8,32 @@ $(document).ready(function() {
 
     // No need to parseJSON this; jQuery already takes care of this
     var endpoints = channel_container.data('channels');
+    var remaining = _.keys(endpoints).length;
+    var isotope_elements = []
 
-    for (var channel in endpoints) {
-        if (endpoints.hasOwnProperty(channel)) {
-            var endpoint = endpoints[channel];
+    _.each(endpoints, function(endpoint) {
+        $.getJSON(endpoint, function(data){
+            if (container_is_empty) {
+                container_is_empty = false;
 
-            $.getJSON(endpoint, function(data){
-                if (container_is_empty) {
-                    container_is_empty = false;
+                // Container contains Loading... text, so empty that
+                channel_container.empty();
+            }
+            var channel_div = $("<div class='channel'></div>");
+            channel_div.css('background-color', data['color']);
 
-                    // Container contains Loading... text, so empty that
-                    channel_container.empty();
-                }
-                var channel_div = $("<div class='channel'></div>");
-                channel_div.css('background-color', data['color']);
+            init_channel(channel_div, data);
 
-                init_channel(channel_div, data);
+            isotope_elements.push(channel_div);
+            remaining -= 1;
 
-                channel_div.appendTo(channel_container);
-            });
-        }
-    }
+            if (remaining === 0) {
+                _.each(isotope_elements, function(element) {
+                    channel_container.isotope('insert', element);
+                })
+            }
+        });
+    });
 
     function init_channel(root, data) {
         root.css('background-color', data['color']);
