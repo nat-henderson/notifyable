@@ -42,7 +42,6 @@ class FacebookReader(APIReaderDaemon):
                     if("picture" in post.keys()):
                         picture = post["picture"]
                     entry = Status(status, from_name, user_id, pic_url=picture)
-                    import ipdb; ipdb.set_trace()
                     self.session.add(entry)
             self.session.commit()
             time.sleep(60)
