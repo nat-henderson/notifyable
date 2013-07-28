@@ -59,6 +59,26 @@ class Tweet(db.Model):
         db.session.add(self)
         db.session.commit()
 
+class Status(db.Model):
+    __tablename__ = 'status'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    status_text = db.Column(db.String(140))
+    pic_url = db.Column(db.String(255))
+    posted_by = db.Column(db.String(255))
+    profile_pic = db.Column(db.String(255))
+
+    def __init__(self, status_text, posted_by, user_id, profile_pic = None, pic_url = None):
+        self.status_text = status_text;
+        self.posted_by = posted_by;
+        self.user_id = user_id
+        self.profile_pic = profile_pic;
+        self.pic_url = pic_url;
+
+    def add_status(self):
+        db.session.add(self)
+        db.session.commit()
+
 
 class Endpoint(object):
     def __init__(self, name, endpoint, db_table, relevance_filter = None):
