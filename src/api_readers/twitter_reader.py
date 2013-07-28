@@ -7,6 +7,7 @@ from models import Tweet
 
 json = import_simplejson()
 
+
 class TwitterReader(APIReaderDaemon):
     consumer_key = "E4TdVoiMVYf44Lvq8KXw"
     consumer_secret = "4xzOk0EvhcDcfBPQ0mJU4PwSeXVNWfOE5sifz4XZ0"
@@ -17,24 +18,28 @@ class TwitterReader(APIReaderDaemon):
 
     stream = None
 
-    def start(self, setup=None):
-        if not(setup is None):
-            self.consumer_key = setup['consumer_key']
-            self.consumer_secret = setup['consumer_secret']
-            self.key = setup['key']
-            self.secret = setup['secret']
-            self.user_id = setup['user_id']
-
-        auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
-        auth.set_access_token(self.key, self.secret)
-        listener = TweetListener()
-        self.stream = Stream(auth, listener)
-        self.stream.userstream()
-
-    def stop(self):
-        if self.stream is None:
+    def __init__(self, config=None):
+        if config is None:
             return
-        self.stream.disconnect()
+        self.consumer_key = config['consumer_key']
+        self.consumer_secret = config['consumer_secret']
+        self.key = config['key']
+        self.secret = config['secret']
+        self.user_id = config['user_id']
+
+
+def start(self):
+    auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
+    auth.set_access_token(self.key, self.secret)
+    listener = TweetListener()
+    self.stream = Stream(auth, listener)
+    self.stream.userstream()
+
+
+def stop(self):
+    if self.stream is None:
+        return
+    self.stream.disconnect()
 
 
 class TweetListener(StreamListener):
@@ -44,8 +49,8 @@ class TweetListener(StreamListener):
         tweet.add_tweet()
 
     def on_error(self, status):
-        print status
+        print(status)
 
 
-if __name__== "__main__":
+if __name__ == "__main__":
     TwitterReader().start()
