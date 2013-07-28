@@ -67,13 +67,14 @@ def home():
         return redirect(url_for('dashboard'))
     else:
         form = LoginForm()
-        channels, endpoints = get_channels_and_endpoints_for_user(current_user)
-        return render_template('index.html', renderers = zip(channels, endpoints), form=form)
+        return render_template('index.html', form=form)
 
 @app.route('/dashboard', methods=["GET"])
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    channels, endpoints = get_channels_and_endpoints_for_user(current_user)
+    return render_template('dashboard.html',
+                           renderers=json.dumps(dict(zip(channels, endpoints))))
 
 for endpoint in endpoints:
     app.register_blueprint(endpoint.blueprint)
