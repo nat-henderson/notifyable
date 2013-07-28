@@ -40,6 +40,7 @@ class RSSEntry(db.Model):
     entry_pub_time = db.Column(db.DateTime)
 
 class Tweet(db.Model):
+    __tablename__ = 'tweet'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     tweet_text = db.Column(db.String(140))
@@ -47,9 +48,10 @@ class Tweet(db.Model):
     tweeted_by = db.Column(db.String(255))
     profile_pic = db.Column(db.String(255))
 
-    def __init__(self, tweet_text, tweeted_by, profile_pic = None, pic_url = None):
+    def __init__(self, tweet_text, tweeted_by, user_id, profile_pic = None, pic_url = None):
         self.tweet_text = tweet_text;
         self.tweeted_by = tweeted_by;
+        self.user_id = user_id
         self.profile_pic = profile_pic;
         self.pic_url = pic_url;
 

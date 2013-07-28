@@ -1,4 +1,4 @@
-from api_readers.api_reader_daemon import APIReaderDaemon
+from api_reader_daemon import APIReaderDaemon
 import tweepy
 from tweepy.streaming import StreamListener
 from tweepy.utils import import_simplejson
@@ -13,10 +13,18 @@ class TwitterReader(APIReaderDaemon):
 
     key = "1626313634-H01bjk5cH4YIYjlI5QF25h799YG3F9rnWpg2ykm"
     secret = "jTtwH8ixH1ImbmAMMyCWTwzYU928m4k40DRFwLe2coQ"
+    user_id = 1
 
     stream = None
 
-    def start(self):
+    def start(self, setup=None):
+        if not(setup is None):
+            self.consumer_key = setup['consumer_key']
+            self.consumer_secret = setup['consumer_secret']
+            self.key = setup['key']
+            self.secret = setup['secret']
+            self.user_id = setup['user_id']
+
         auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
         auth.set_access_token(self.key, self.secret)
         listener = TweetListener()
@@ -32,11 +40,12 @@ class TwitterReader(APIReaderDaemon):
 class TweetListener(StreamListener):
     def on_data(self, data):
         json_data = json.loads(data)
-        tweet = Tweet(json_data['text'], json_data['user']['name'])
+        tweet = Tweet(json_data['text'], json_data['user']['name'], self.user_id)
         tweet.add_tweet()
 
     def on_error(self, status):
         print status
 
-if __name__=="__main__":
+
+if __name__== "__main__":
     TwitterReader().start()
