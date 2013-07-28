@@ -65,6 +65,19 @@ def dashboard():
 for endpoint in endpoints:
     app.register_blueprint(endpoint.blueprint)
 
+@app.route('/update/facebook', methods=["GET"])
+@login_required
+def facebook_test():
+    return jsonify(
+        type="text",
+        color="#FF0000",
+        channel="Facebook",
+        title="title",
+        text="huzzah! This is very long text. Let's see how long I can go just " +
+             "babbling on. Yeah, point of this is to stress-test our front-end JS.",
+        meta=dict(image="https://si0.twimg"
+                    ".com/profile_images/2920991192/957f03ebab5ef48f1363a1378b6a8741_bigger.jpeg", text="Daniel Ge"),
+    )
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
