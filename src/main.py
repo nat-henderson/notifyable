@@ -5,6 +5,7 @@ from flask import url_for
 from flask.ext.assets import Environment
 from flask.ext.security import Security, SQLAlchemyUserDatastore
 from flask.ext.security import login_required
+from flask.ext.security import LoginForm
 from flask.ext.security.core import current_user
 from endpoints import endpoints
 from models import db
@@ -58,13 +59,13 @@ def get_channels_and_endpoints_for_user(user):
 
 # Views
 @app.route('/')
-@login_required
 def home():
     if current_user.is_authenticated():
         return redirect(url_for('dashboard'))
     else:
+        form = LoginForm()
         channels, endpoints = get_channels_and_endpoints_for_user(current_user)
-        return render_template('index.html', renderers = zip(channels, endpoints))
+        return render_template('index.html', renderers = zip(channels, endpoints), form=form)
 
 @app.route('/dashboard', methods=["GET"])
 @login_required
