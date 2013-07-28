@@ -31,6 +31,7 @@ class FacebookReader(APIReaderDaemon):
         return list    
 
     def start(self):
+        #TESTING
         print self.get_dialog_url()
         print self.get_access_token_url('AQBFkdQ62e8SKEV5I4T9VuKg7Tj6ximM0cKSqqTqZa7eRaUk_CrMRgpUt0F3z1a8Btj6LWOQC7tOgtQ78fPPhxJ-v9YujyoMkRDBZKmGf0zC_VCC7mf-cbNdJeFfIigh2vIWoKTBPm4jY6lHdqJIVAkz6I1Bg-GWlhSPsBD_drTQZ0otoktCKi6Angwyd7qibQmZ3Ae_QK5FSnoVkKGDPFJH1uvZXX9QAWJ4KAdxRFEgcHlQwuYAtlr1UfmouCt803lk1Gdw5rzJ-ckT_3m34JG7O84c_2A7XNK8shMyY55HZdf6lYjjSef-H_vtpqA_UEM')
         print self.get_data("/me/feed", self.access_token)
