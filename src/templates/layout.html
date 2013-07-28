@@ -3,8 +3,12 @@
 <head>
     <meta charset='utf-8'>
     <title>Notifyable -- {% block title %}{% endblock %}</title>
-    <script src="{{ url_for('static', filename='jquery-2.0.3.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-2.0.3.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/underscore-min.js') }}"></script>
     {% block scripts %}{% endblock %}
+    {% assets filter="pyscss", output="gen/all.css", 'scss/styles.scss' %}
+        <link rel=stylesheet href="{{ ASSET_URL }}">
+    {% endassets %}
 </head>
 <body>
     {% block content %}{% endblock %}

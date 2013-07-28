@@ -79,10 +79,6 @@ class Tweet(db.Model):
         self.profile_pic = profile_pic;
         self.pic_url = pic_url;
 
-    def add_tweet(self):
-        db.session.add(self)
-        db.session.commit()
-
 class Status(db.Model):
     __tablename__ = 'status'
     id = db.Column(db.Integer, primary_key=True)
