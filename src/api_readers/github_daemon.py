@@ -1,7 +1,6 @@
 from api_reader_daemon import APIReaderDaemon
 import datetime
 import time
-from github import Github
 from models import GithubRepo
 from models import GithubRepoEvent
 
