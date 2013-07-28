@@ -8,9 +8,9 @@ import tweepy
 
 tweet_renderer = Blueprint('tweets', __name__)
 
-@tweet_renderer.route('/tweets')
+@tweet_renderer.route('/tweets/<int:user_id>')
 @login_required
-def get_tweet():
+def get_tweet(user_id):
     tweet = get_last_tweet(current_user.id)
 
     return json.dumps({'type' : 'text',
