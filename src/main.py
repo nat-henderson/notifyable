@@ -118,7 +118,7 @@ def twitter_verification():
     session = Session()
     session.add(oauthtoken)
     session.commit()
-    return redirect(url_for('dashboard.render_dashboard'))
+    return redirect(url_for('dashboard'))
 
 @app.route('/facebook_verification', methods=["GET"])
 @login_required
@@ -141,7 +141,7 @@ def facebook_verification():
     oauthtoken.facebook_key = data
     
     session.commit()
-    return redirect(url_for('dashboard.render_dashboard'))
+    return redirect(url_for('dashboard'))
 
 @app.route('/update/dropbox', methods=["GET"])
 @login_required
