@@ -16,7 +16,12 @@
 {% block content %}
     {{ super () }}
         <div id='channel-container' class="row"
-             data-channels='{"facebook": "/update/facebook", "dropbox": "/update/dropbox"}'>
-            Loading...
+             data-channels='{{ renders }}'>
+            {%- if renders -%}
+                Loading...
+            {% else %}
+                You don't seem to have any channels enabled. You can add some in
+                <a href="javascript:alert('NotImplementedError')">Settings</a>.
+            {% endif %}
         </div>
 {% endblock %}
