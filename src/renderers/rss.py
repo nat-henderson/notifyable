@@ -10,7 +10,7 @@ def get_rss_entry(feed_id):
             .filter_by(feed_id = feed_id)\
             .order_by(RSSEntry.id.desc()).first()
     return json.dumps({'type' : 'text',
-            'color' : '222222',
+            'color' : '#222222',
             'channel' : 'RSS',
             'title' : entry.entry_title,
             'text' : entry.entry_desc,
