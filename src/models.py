@@ -67,6 +67,11 @@ class GithubRepo(db.Model):
     gh_username = db.Column(db.String(255))
     gh_repo = db.Column(db.String(255))
 
+    def __init__(self, u, gu, gr):
+        self.user_id = u
+        self.gh_username = gu
+        self.gh_repo = gr
+
 class GithubRepoEvent(db.Model):
     __tablename__ = 'githubevents'
     id = db.Column(db.Integer, primary_key = True)
@@ -74,6 +79,12 @@ class GithubRepoEvent(db.Model):
     user_pushed = db.Column(db.String(255))
     avatar_url = db.Column(db.String(255))
     message = db.Column(db.String(255))
+
+    def __init__(self, rid, up, avu, msg):
+        self.repo_id = rid
+        self.user_pushed = up
+        self.avatar_url = avu
+        self.message = msg
 
 class Tweet(db.Model):
     __tablename__ = 'tweet'

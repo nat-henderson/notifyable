@@ -12,12 +12,12 @@ class GithubReaderDaemon(APIReaderDaemon):
 
     def start(self):
         while True:
+            a_minute_ago = datetime.datetime.now() - datetime.timedelta(seconds = 60)
             repos_to_read = self.session.query(GithubRepo).all()
             for repo in repos_to_read:
                 gh = Github()
-                a_minute_ago = datetime.datetime.now() - datetime.timedelta(seconds = 30)
-                repo = gh.get_repo(repo.github_user + '/' + repo.github_repo)
-                events = repo.get_events()
+                e_repo = gh.get_repo(repo.gh_username + '/' + repo.gh_repo)
+                events = e_repo.get_events()
                 if events[0].created_at > a_minute_ago and events[0].type == 'PushEvent':
                     author = events[0].actor
                     commit = events[0].payload['commits'][0]['message']

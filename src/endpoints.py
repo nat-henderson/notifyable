@@ -1,6 +1,5 @@
-from models import RSSFeed, User
+from models import RSSFeed, GithubRepo
 from renderers.rss import rss_renderer
-from renderers.dashboard import dashboard_renderer
 from renderers.github import gh_renderer
 
 class Endpoint(object):
