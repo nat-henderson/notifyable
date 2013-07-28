@@ -1,5 +1,6 @@
-from models import RSSFeed
+from models import RSSFeed, User
 from renderers.rss import rss_renderer
+from renderers.dashboard import dashboard_renderer
 
 class Endpoint(object):
     def __init__(self, name, endpoint, renderer, db_table, relevance_filter = None):
@@ -9,4 +10,7 @@ class Endpoint(object):
         self.db_table = db_table
         self.relevance_filter = relevance_filter
 
-endpoints = [Endpoint('RSS', '/rss/%i', rss_renderer, RSSFeed, lambda x: True)]
+endpoints = [
+    Endpoint('RSS', '/rss/%i', rss_renderer, RSSFeed, lambda x: True),
+    Endpoint('DashBoard', '/dashboard/%i', dashboard_renderer, User, lambda x: True)
+]
