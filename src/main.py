@@ -89,6 +89,28 @@ def facebook_test():
                     ".com/profile_images/2920991192/957f03ebab5ef48f1363a1378b6a8741_bigger.jpeg", text="Daniel Ge"),
     )
 
+@app.route('/twitter_verification', methods=["GET"])
+@login_required
+def twitter_verification():
+    twitter_key = request.cookies.get('twitter_key')
+    twitter_secret = request.cookies.get('twitter_secret')
+    config = json.load(open('config.json'))
+    consumer_key = str(config["TwitterReader"]["CONSUMER_KEY"])
+    consumer_secret = str(config["TwitterReader"]["CONSUMER_SECRET"])
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_request_token(twitter_key, twitter_secret)
+
+    auth.get_access_token(request.args["verification_code"])
+    oauthtoken = OAuthTokens()
+    oauthtoken.twitter_key = auth.access_token.key
+    oauthtoken.twitter_secret = auth.access_token.secret
+    oauthtoken.user_id = current_user.id
+
+    session = Session()
+    session.add(oauthtoken)
+    session.commit()
+    return "SOME TEXT"
+
 @app.route('/update/dropbox', methods=["GET"])
 @login_required
 def dropbox_test():
