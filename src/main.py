@@ -59,6 +59,8 @@ def get_channels_and_endpoints_for_user(user):
             for row in user_rows:
                 channels.append(endpoint.name)
                 eps.append(endpoint.endpoint % (row.id,))
+    channels.append('twitter')
+    eps.append('/tweets/1')
     return channels, eps
 
 # Views

@@ -26,6 +26,8 @@ $(document).ready(function() {
                     layoutMode: 'masonry'
                 });
             }
+        }).fail(function() {
+            remaining -= 1;
         });
     });
 
