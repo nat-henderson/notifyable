@@ -6,7 +6,9 @@ rss_renderer = Blueprint('rss', __name__)
 
 @rss_renderer.route('/rss/<int:feed_id>')
 def get_rss_entry(feed_id):
-    entry = db.session.query(RSSEntry).order_by(RSSEntry.id.desc()).one()
+    entry = db.session.query(RSSEntry)\
+            .filter_by(RSSEntry.feed_id == feed_id)\
+            .order_by(RSSEntry.id.desc()).first()
     return json.dumps({'type' : 'text',
             'color' : '222222',
             'channel' : 'RSS',

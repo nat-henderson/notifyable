@@ -9,6 +9,9 @@ from sqlalchemyuri import sqlalchemyuri
 db = SQLAlchemy()
 
 def Session():
+    # this should make you sad.  Does it make you sad?
+    # it should.
+    # seriously. it is hard to explain how sad this should make you.
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = sqlalchemyuri
     db = SQLAlchemy(app)
@@ -68,6 +71,9 @@ class GithubRepoEvent(db.Model):
     __tablename__ = 'githubevents'
     id = db.Column(db.Integer, primary_key = True)
     repo_id = db.Column(db.Integer, db.ForeignKey('github.id'))
+    user_pushed = db.Column(db.String(255))
+    avatar_url = db.Column(db.String(255))
+    message = db.Column(db.String(255))
 
 class Tweet(db.Model):
     __tablename__ = 'tweet'
