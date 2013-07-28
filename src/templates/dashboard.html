@@ -15,14 +15,14 @@
 
 {% block content %}
     {{ super () }}
-        {%- if renders -%}
+        {%- if renderers -%}
         <div class="row">
             <button class="btn btn-primary" id="refresh">Refresh</button>
         </div>
         {% endif %}
         <div id='channel-container' class="row"
-             data-channels='{{ renders }}'>
-            {%- if renders -%}
+             data-channels='{{ renderers }}'>
+            {%- if renderers -%}
                 Loading...
             {% else %}
                 You don't seem to have any channels enabled. You can add some in
