@@ -2,9 +2,12 @@
 {% block title %}Dashboard{% endblock %}
 {% block scripts %}
     <script src="{{ url_for('static', filename='jquery.isotope.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='dash.js')}}"></script>
 {% endblock %}
 
 {% block content %}
     {{ super () }}
-        <p>Huzzah!</p>
+        <div id='channel-container' data-channels='{"facebook": "/update/facebook"}'>
+            Loading...
+        </div>
 {% endblock %}
