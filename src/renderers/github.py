@@ -16,7 +16,7 @@ def get_gh_entry(repo_id):
                 'color' : '000000',
                 'channel' : 'Github',
                 'title' : repo.gh_repo,
-                'text' : 'No one has committed for a while!'
+                'text' : 'No one has committed for a while!',
                 'image' : None,
                 'meta' : {
                     'text' : 'Github!',
