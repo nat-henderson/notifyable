@@ -6,10 +6,15 @@ status_renderer = Blueprint('status', __name__)
 
 @status_renderer.route('/status')
 def get_status():
-    status = db.session.query(Status).order_by(Status.id.desc()).one()
+    status = db.session.query(Status).order_by(Status.id.desc()).first()
     return json.dumps({'type' : 'text',
-            'status_text' : status.status_text,
-            'posted_by' : status.posted_by,
-            'image_url' : status.pic_url,
-            'profile_pic': status.profile_pic
+            'color' : '#FF0000',
+            'channel' : 'Facebook',
+            'title' : status.posted_by,
+            'text' : status.status_text,
+            'image' : status.pic_url,
+            'meta': {
+                'text' : 'Facebook!'
+                'image': status.profile_pic
+            }
         })
