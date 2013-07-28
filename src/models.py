@@ -60,12 +60,4 @@ class Tweet(db.Model):
         db.session.commit()
 
 
-class Endpoint(object):
-    def __init__(self, name, endpoint, db_table, relevance_filter = None):
-        self.name = name
-        self.endpoint = endpoint
-        self.db_table = db_table
-        self.relevance_filter = relevance_filter
-
-endpoints = [Endpoint('RSS', '/rss/%i', RSSFeed, lambda x: True)]
 

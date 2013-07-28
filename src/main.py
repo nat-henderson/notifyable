@@ -4,7 +4,7 @@ from flask.ext.security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from flask.ext.security.core import current_user
 from flask.ext.mail import Mail
-from renderers import *
+from endpoints import endpoints
 from models import db
 from models import *
 import os
@@ -59,8 +59,10 @@ def home():
 def dashboard():
     return render_template('dashboard.tmpl')
 
+for endpoint in endpoints:
+    app.register_blueprint(endpoint.blueprint)
+
 if __name__ == '__main__':
-    db.init_app(app)
     if len(sys.argv) > 1:
         if sys.argv[1] == '--create':
             db.create_all(app=app)
