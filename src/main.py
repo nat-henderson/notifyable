@@ -52,12 +52,12 @@ def get_channels_and_endpoints_for_user(user):
 @login_required
 def home():
     channels, endpoints = get_channels_and_endpoints_for_user(current_user)
-    return render_template('index.tmpl', renderers = zip(channels, endpoints))
+    return render_template('index.html', renderers = zip(channels, endpoints))
 
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.tmpl')
+    return render_template('dashboard.html')
 
 for endpoint in endpoints:
     app.register_blueprint(endpoint.blueprint)
