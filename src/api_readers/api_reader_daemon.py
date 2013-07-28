@@ -9,3 +9,7 @@ class APIReaderDaemon(object):
         raise NotImplemented
     def stop(self):
         raise NotImplemented
+    def new_data_received(self, data):
+        raise NotImplemented
+    def add_to_db(self, data):
+        raise NotImplemented

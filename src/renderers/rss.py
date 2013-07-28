@@ -1,5 +1,5 @@
 from flask import Blueprint
-from models import db
+from models import db, RSSEntry
 import json
 
 rss_renderer = Blueprint('rss', __name__)
