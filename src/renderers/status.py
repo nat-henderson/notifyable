@@ -4,8 +4,8 @@ import json
 
 status_renderer = Blueprint('status', __name__)
 
-@status_renderer.route('/status/<int:user_id>')
-def get_tweet(user_id):
+@status_renderer.route('/status')
+def get_status():
     status = db.session.query(Status).order_by(Status.id.desc()).one()
     return json.dumps({'type' : 'text',
             'status_text' : status.status_text,
