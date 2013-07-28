@@ -44,6 +44,14 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
+class Tweet(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    tweet_text = db.Column(db.String(140))
+    pic_url = db.Column(db.String(255))
+    tweeted_by = db.Column(db.String(255))
+    profile_pic = db.Column(db.String(255))
+
 # Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
