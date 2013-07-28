@@ -9,6 +9,7 @@ from flask.ext.security.core import current_user
 from endpoints import endpoints
 from models import db
 from models import *
+from models import Session
 from sqlalchemyuri import sqlalchemyuri
 import json
 import sys
@@ -41,17 +42,19 @@ assets.url = app.static_url_path
 
 def get_channels_and_endpoints_for_user(user):
     channels = []
-    endpoints = []
+    eps = []
+    session = Session()
     for endpoint in endpoints:
-        user_rows = db.session.query(endpoint.db_table)\
+        print endpoint
+        user_rows = session.query(endpoint.db_table)\
                 .filter_by(user_id = user.get_id())\
                 .order_by(endpoint.db_table.id.desc())\
                 .limit(5).all()
         if user_rows:
             for row in user_rows:
                 channels.append(endpoint.name)
-                endpoints.append(endpoint.endpoint % (row.id,))
-    return channels, endpoints
+                eps.append(endpoint.endpoint % (row.id,))
+    return channels, eps
 
 # Views
 @app.route('/')
