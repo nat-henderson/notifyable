@@ -31,6 +31,14 @@ class RSSFeed(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     feed_url = db.Column(db.String(1024))
 
+class RSSEntry(db.Model):
+    __tablename__ = 'rssentry'
+    id = db.Column(db.Integer, primary_key = True)
+    feed_id = db.Column(db.Integer, db.ForeignKey('rssfeeds.id'))
+    entry_title = db.Column(db.String(255))
+    entry_desc = db.Column(db.String(255))
+    entry_pub_time = db.Column(db.DateTime)
+
 class Tweet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
