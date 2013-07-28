@@ -35,7 +35,7 @@ class FacebookReader(APIReaderDaemon):
                 else:
                     posts = json.loads(self.get_data(base_url + "/me/feed?access_token="+access_token))
                 if "paging" in posts.keys():
-                    self.pagination_next[user_id] = posts["paging"]["next"]
+                    self.pagination_next[user_id] = posts["paging"]["previous"]
                 posts = posts["data"]
                 for post in posts:
                     status = post.get("story")
