@@ -36,7 +36,7 @@ $(document).ready(function() {
         populate_content(content_div, data);
         content_div.appendTo(root);
 
-        $("<h1 class='service-name'>" + data['channel'] + "</h1>").appendTo(root);
+        $("<h5 class='service-name'>" + data['channel'] + "</h5>").appendTo(root);
     }
 
     function populate_content(root, data) {
@@ -77,7 +77,7 @@ $(document).ready(function() {
         if (image) {
             html += "<img src='" + image + "'>";
         }
-        html += "<h1>" + text + "</h1>";
+        html += "<h4>" + text + "</h4>";
         html += "</div>";
 
         return html;
