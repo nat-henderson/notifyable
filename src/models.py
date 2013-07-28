@@ -52,6 +52,10 @@ class RSSFeed(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     feed_url = db.Column(db.String(1024))
 
+    def __init__(self, uid, furl):
+        self.user_id = uid
+        self.feed_url = furl
+
 class RSSEntry(db.Model):
     __tablename__ = 'rssentry'
     id = db.Column(db.Integer, primary_key = True)
@@ -59,6 +63,12 @@ class RSSEntry(db.Model):
     entry_title = db.Column(db.String(255))
     entry_desc = db.Column(db.String(255))
     entry_pub_time = db.Column(db.DateTime)
+
+    def __init__(self, fid, et, ed, ept):
+        self.feed_id = fid
+        self.entry_title = et
+        self.entry_desc = ed
+        self.entry_pub_time = ept
 
 class GithubRepo(db.Model):
     __tablename__ = 'github'
