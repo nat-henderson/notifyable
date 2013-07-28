@@ -98,6 +98,21 @@ def facebook_test():
                     ".com/profile_images/2920991192/957f03ebab5ef48f1363a1378b6a8741_bigger.jpeg", text="Daniel Ge"),
     )
 
+@app.route('/add_feed_to_db', methods=["GET"])
+@login_required
+def add_feed_to_db():
+    feed_url = request.args["feed_url"]
+    feed = RSSFeed(current_user.id, feed_url)
+    session = Session()
+    session.add(feed)
+    session.commit()
+    return redirect(url_for('dashboard.render_dashboard'))
+
+@app.route('/add_feed', methods=["GET"])
+@login_required
+def add_feed():
+    return render_template('/add_feed.html')
+
 @app.route('/twitter_verification', methods=["GET"])
 @login_required
 def twitter_verification():

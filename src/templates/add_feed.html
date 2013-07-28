@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}OAuth Token Fetch{% endblock %}
+{% block content %}
+
+<form method=get action="/add_feed_to_db">
+  Add Feed: <input type = "text" name = "feed_url"/>
+  <input type=submit value="Add feed">
+</form>
+
+{% endblock %}
