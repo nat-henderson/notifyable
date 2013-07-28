@@ -1,16 +1,18 @@
 @import "isotope";
 
 $content-spacing: 8px;
-$serif-fonts: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+$sans-serif: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+$serif: 'Georgia', serif;
 
 /**** Isotope-specific custom CSS for making things look pretty ****/
 
 .channel {
   background-color: #FFF;   // Default background color if none exists
   border-radius: 2px;
+  margin: $content-spacing;
 
   .service-name {
-    font: 16px $serif-fonts;
+    font: 16px $sans-serif;
     padding: {
       right: $content-spacing * 2;
     }
@@ -21,15 +23,25 @@ $serif-fonts: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 .channel-content {
   border-radius: 1px;
   margin: $content-spacing;
-  max-width: 480px + $content-spacing * 2;
+  max-width: 400px + $content-spacing * 2;
+  min-width: 200px + $content-spacing * 2;
   padding: $content-spacing;
 
   .content-title {
-    font: bold 36px $serif-fonts;
+    font: bold 36px $sans-serif;
   }
 
   .content-text {
-    font-size: 28px;
+    font: 28px $serif;
+  }
+
+  .content-image {
+    height: auto;
+    width: 100%;
+  }
+  .content-caption {
+    margin-top: $content-spacing;
+    font: 24px $serif;
   }
 
   .content-meta {
@@ -44,7 +56,7 @@ $serif-fonts: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
       width: $square-side;
     }
     h1 {
-      font: bold 18px $serif-fonts;
+      font: bold 18px $sans-serif;
     }
   }
 }
