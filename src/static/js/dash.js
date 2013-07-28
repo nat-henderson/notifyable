@@ -52,7 +52,11 @@ $(document).ready(function() {
             }
         } else if (data['type'] === 'image') {
             elements.push("<img class='content-image' src='" + data['image'] + "'>");
-            elements.push("<p class='content-caption'>" + data['text'] + "</p>");
+
+            var caption = data['text'];
+            if (caption) {
+                elements.push("<p class='content-caption'>" + caption + "</p>");
+            }
         } else {
             console.warn("Unsupported data type " + data['type']);
         }
