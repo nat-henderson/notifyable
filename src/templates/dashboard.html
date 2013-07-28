@@ -5,9 +5,17 @@
     <script src="{{ url_for('static', filename='js/dash.js') }}"></script>
 {% endblock %}
 
+{% block nav %}
+    <li class="active"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+    <li><a href="javascript:alert('NotImplementedError')">Settings</a></li>
+{% endblock %}
+{% block navhack %}
+    <p class="navbar-text pull-right"><a href="/logout">Log out</a></p>
+{% endblock %}
+
 {% block content %}
     {{ super () }}
-        <div id='channel-container'
+        <div id='channel-container' class="row"
              data-channels='{"facebook": "/update/facebook", "dropbox": "/update/dropbox"}'>
             Loading...
         </div>
