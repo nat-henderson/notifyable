@@ -1,10 +1,5 @@
 $(document).ready(function() {
     var channel_container = $('#channel-container');
-    var container_is_empty = true;
-    channel_container.isotope({
-        itemSelector: '.channel',
-        layoutMode: 'fitRows'
-    });
 
     // No need to parseJSON this; jQuery already takes care of this
     var endpoints = channel_container.data('channels');
@@ -13,12 +8,6 @@ $(document).ready(function() {
 
     _.each(endpoints, function(endpoint) {
         $.getJSON(endpoint, function(data){
-            if (container_is_empty) {
-                container_is_empty = false;
-
-                // Container contains Loading... text, so empty that
-                channel_container.empty();
-            }
             var channel_div = $("<div class='channel'></div>");
             channel_div.css('background-color', data['color']);
 
@@ -28,8 +17,13 @@ $(document).ready(function() {
             remaining -= 1;
 
             if (remaining === 0) {
+                channel_container.empty();
                 _.each(isotope_elements, function(element) {
-                    channel_container.isotope('insert', element);
+                    element.appendTo(channel_container);
+                })
+                channel_container.isotope({
+                    itemSelector: '.channel',
+                    layoutMode: 'masonry'
                 })
             }
         });
