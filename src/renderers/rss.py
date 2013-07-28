@@ -9,6 +9,8 @@ def get_rss_entry(feed_id):
     entry = db.session.query(RSSEntry)\
             .filter_by(feed_id = feed_id)\
             .order_by(RSSEntry.id.desc()).first()
+    if not entry:
+        return None
     return json.dumps({'type' : 'text',
             'color' : '#222222',
             'channel' : 'RSS',

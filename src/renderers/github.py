@@ -8,9 +8,21 @@ gh_renderer = Blueprint('github', __name__)
 def get_gh_entry(repo_id):
     entry = db.session.query(GithubRepoEvent)\
             .filter_by(repo_id = repo_id)\
-            .order_by(GithubRepoEvent.id.desc()).one()
+            .order_by(GithubRepoEvent.id.desc()).first()
     repo = db.session.query(GithubRepo)\
             .filter_by(id = repo_id).one()
+    if not entry:
+        return json.dumps({'type' : 'text',
+                'color' : '000000',
+                'channel' : 'Github',
+                'title' : repo.gh_repo,
+                'text' : 'No one has committed for a while!'
+                'image' : None,
+                'meta' : {
+                    'text' : 'Github!',
+                    'image' : 'http://newmerator.github.io/blacktocat.png'
+                },
+            })
     return json.dumps({'type' : 'text',
             'color' : '000000',
             'channel' : 'Github',
