@@ -31,6 +31,15 @@ class RSSFeed(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     feed_url = db.Column(db.String(1024))
 
+class Tweet(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    tweet_text = db.Column(db.String(140))
+    pic_url = db.Column(db.String(255))
+    tweeted_by = db.Column(db.String(255))
+    profile_pic = db.Column(db.String(255))
+
+
 class Endpoint(object):
     def __init__(self, name, endpoint, db_table, relevance_filter = None):
         self.name = name

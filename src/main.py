@@ -54,6 +54,11 @@ def home():
     channels, endpoints = get_channels_and_endpoints_for_user(current_user)
     return render_template('index.tmpl', renderers = zip(channels, endpoints))
 
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.tmpl')
+
 if __name__ == '__main__':
     db.init_app(app)
     if len(sys.argv) > 1:
