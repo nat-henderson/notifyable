@@ -48,6 +48,7 @@ assets.url = app.static_url_path
 def get_channels_and_endpoints_for_user(user):
     channels = []
     eps = []
+    fb_endpoint = None
     session = Session()
     for endpoint in endpoints:
         print endpoint
@@ -57,10 +58,16 @@ def get_channels_and_endpoints_for_user(user):
                 .limit(5).all()
         if user_rows:
             for row in user_rows:
-                channels.append(endpoint.name)
-                eps.append(endpoint.endpoint % (row.id,))
+                if endpoint.name == "Facebook":
+                    fb_endpoint = endpoint.endpoint % row.id
+                else:
+                    channels.append(endpoint.name)
+                    eps.append(endpoint.endpoint % (row.id,))
     channels.append('twitter')
     eps.append('/tweets/1')
+
+    channels.append('Facebook')
+    eps.append(fb_endpoint)
     return channels, eps
 
 # Views
@@ -76,8 +83,7 @@ def home():
 @login_required
 def dashboard():
     channels, endpoints = get_channels_and_endpoints_for_user(current_user)
-    return render_template('dashboard.html',
-                           renderers=json.dumps(dict(zip(channels, endpoints))))
+    return render_template('dashboard.html', renderers=json.dumps(endpoints))
 
 for endpoint in endpoints:
     app.register_blueprint(endpoint.blueprint)

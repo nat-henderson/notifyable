@@ -28,7 +28,6 @@ class FacebookReader(APIReaderDaemon):
                 access_token = token.facebook_key
                 fb_user = json.loads(self.get_data(base_url + "/me?access_token="+access_token))
                 profile_pic = "https://graph.facebook.com/" + fb_user["id"] + "/picture"
-                import ipdb;ipdb.set_trace()
                 user_id = token.user_id
                 posts = None
                 if user_id in self.pagination_next:
@@ -36,10 +35,14 @@ class FacebookReader(APIReaderDaemon):
                 else:
                     posts = json.loads(self.get_data(base_url + "/me/feed?access_token="+access_token))
                 if "paging" in posts.keys():
-                    self.pagination_next[user_id] = posts["paging"]["next"]
+                    self.pagination_next[user_id] = posts["paging"]["previous"]
                 posts = posts["data"]
                 for post in posts:
-                    status = post["story"]
+                    status = post.get("story")
+                    if not status:
+                        status = post.get("message")
+                        if not status:
+                            continue
                     from_name = post["from"]["name"]
                     picture = None
                     if("picture" in post.keys()):
