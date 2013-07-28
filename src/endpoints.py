@@ -16,6 +16,6 @@ class Endpoint(object):
 endpoints = [
     Endpoint('RSS', '/rss/%i', rss_renderer, RSSFeed, lambda x: True),
     Endpoint('Github', '/github/%i', gh_renderer, GithubRepo, lambda x:True),
-    Endpoint('Facebook', '/facebook', status_renderer, Status, lambda x:True),
-    Endpoint('Twitter', '/tweets', tweet_renderer, Tweet, lambda x:True),
+    Endpoint('Facebook', '/status/%i', status_renderer, Status, lambda x:True),
+    Endpoint('Twitter', '/tweets/%i', tweet_renderer, Tweet, lambda x:True),
 ]
