@@ -57,7 +57,7 @@ def home():
     channels, endpoints = get_channels_and_endpoints_for_user(current_user)
     return render_template('index.html', renderers = zip(channels, endpoints))
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=["GET"])
 @login_required
 def dashboard():
     return render_template('dashboard.html')
@@ -65,10 +65,6 @@ def dashboard():
 for endpoint in endpoints:
     app.register_blueprint(endpoint.blueprint)
 
-@app.route('/dashboard', methods=["GET"])
-@login_required
-def dashboard():
-    return render_template('dashboard.html')
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
