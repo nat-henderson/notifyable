@@ -1,8 +1,10 @@
 from flask import Flask, render_template
 from flask import jsonify
+from flask import redirect
+from flask import url_for
 from flask.ext.assets import Environment
-from flask.ext.security import Security, SQLAlchemyUserDatastore, \
-    UserMixin, RoleMixin, login_required
+from flask.ext.security import Security, SQLAlchemyUserDatastore
+from flask.ext.security import login_required
 from flask.ext.security.core import current_user
 from endpoints import endpoints
 from models import db
@@ -54,8 +56,11 @@ def get_channels_and_endpoints_for_user(user):
 @app.route('/')
 @login_required
 def home():
-    channels, endpoints = get_channels_and_endpoints_for_user(current_user)
-    return render_template('index.html', renderers = zip(channels, endpoints))
+    if current_user.is_authenticated():
+        return redirect(url_for('dashboard'))
+    else:
+        channels, endpoints = get_channels_and_endpoints_for_user(current_user)
+        return render_template('index.html', renderers = zip(channels, endpoints))
 
 @app.route('/dashboard', methods=["GET"])
 @login_required
