@@ -1,13 +1,20 @@
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
+from flask import Flask
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemyuri import sqlalchemyuri
 
-Session = sessionmaker(bind=create_engine(sqlalchemyuri))
+Session = sessionmaker(autocommit = False, autoflush = False, bind = create_engine(sqlalchemyuri))
 
 db = SQLAlchemy()
+
+def Session():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = sqlalchemyuri
+    db = SQLAlchemy(app)
+    return db.session
 
 # Define models
 roles_users = db.Table('roles_users',
@@ -43,6 +50,18 @@ class RSSEntry(db.Model):
     entry_title = db.Column(db.String(255))
     entry_desc = db.Column(db.String(255))
     entry_pub_time = db.Column(db.DateTime)
+
+class GithubRepo(db.Model):
+    __tablename__ = 'github'
+    id = db.Column(db.Integer, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    gh_username = db.Column(db.String(255))
+    gh_repo = db.Column(db.String(255))
+
+class GithubRepoEvent(db.Model):
+    __tablename__ = 'githubevents'
+    id = db.Column(db.Integer, primary_key = True)
+    repo_id = db.Column(db.Integer, db.ForeignKey('github.id'))
 
 class Tweet(db.Model):
     __tablename__ = 'tweet'
