@@ -6,8 +6,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemyuri import sqlalchemyuri
 
-Session = sessionmaker(autocommit = False, autoflush = False, bind = create_engine(sqlalchemyuri))
-
 db = SQLAlchemy()
 
 def Session():
