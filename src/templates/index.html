@@ -14,6 +14,17 @@
     </form>
 {% endblock %}
 {% block content %}
-        Notifyable is a simple dashboard that aggregates user contents from vairous websites. It also allows user to choose
-        the websites to fetch content from.
+<h1 id="marketing-title"> Welcome to Notifyable </h1>
+<h2> Your hackable, self-hosted aggregation system for the content that you really care about.</h2>
+
+<a class='btn btn-primary btn-large' href="{{ url_for_security('register') }}">Sign up now</a>
+
+<p> With a simple at-a-glance aesthetic and a few common services already baked in, you will find Notifyable a useful addition with these features:</p>
+<ul class="feature-list">
+    <li> Facebook integration - See recent OpenGraph events </li>
+    <li> Twitter integration - Recent tweets and follower events </li>
+    <li> RSS hooks - See the top of your favorite feeds </li>
+    <li> Github hooks - Did the repo admin finally merge your pull request? </li>
+    <li> Simple and comprehensible API for adding new hooks, be they OAuth or otherwise </li>
+</ul>
 {% endblock %}

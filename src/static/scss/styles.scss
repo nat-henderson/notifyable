@@ -57,3 +57,14 @@ $serif: 'Georgia', serif;
     width: 200px;
   }
 }
+
+#marketing-title {
+    font: {
+        size: 48px;
+        weight: bold;
+    }
+}
+
+.feature-list {
+    list-style: none;
+}
