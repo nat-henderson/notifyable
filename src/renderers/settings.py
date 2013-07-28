@@ -8,11 +8,11 @@ import tweepy
 import json
 import random
 
-dashboard_renderer = Blueprint('dashboard', __name__)
+settings_renderer = Blueprint('settings', __name__)
 
-@dashboard_renderer.route('/dashboard/alpha')
+@settings_renderer.route('/settings', methods=["GET"])
 @login_required
-def render_dashboard():
+def settings():
     oauth_token = get_oauth_token(current_user.id)
 
     if oauth_token is None:
@@ -20,7 +20,7 @@ def render_dashboard():
     if oauth_token.facebook_key is None:
         return fetch_facebook_token(oauth_token)
     else:
-        return render_template('dashboard.html')
+        return render_template('settings.html')
 
 def fetch_twitter_tokens(oauth_token):
     config = json.load(open('config.json'))

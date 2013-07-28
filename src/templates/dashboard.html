@@ -7,7 +7,7 @@
 
 {% block nav %}
     <li class="active"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-    <li><a href="javascript:alert('NotImplementedError')">Settings</a></li>
+    <li><a href="{{ url_for('settings.settings') }}">Settings</a></li>
 {% endblock %}
 {% block navhack %}
     <p class="navbar-text pull-right"><a href="/logout">Log out</a></p>
