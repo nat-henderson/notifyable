@@ -106,12 +106,28 @@ def add_feed_to_db():
     session = Session()
     session.add(feed)
     session.commit()
-    return redirect(url_for('dashboard.render_dashboard'))
+    return redirect(url_for('dashboard'))
+
+@app.route('/add_github_repo_to_db', methods=["GET"])
+@login_required
+def add_github_repo_to_db():
+    gh_user = request.args["github_user"]
+    gh_url = request.args["github_url"]
+    repo = GithubRepo(current_user.id, gh_user, gh_url)
+    session = Session()
+    session.add(repo)
+    session.commit()
+    return redirect(url_for('dashboard'))
 
 @app.route('/add_feed', methods=["GET"])
 @login_required
 def add_feed():
     return render_template('/add_feed.html')
+
+@app.route('/add_github_repo', methods=["GET"])
+@login_required
+def add_github_repo():
+    return render_template('/add_github_repo.html')
 
 @app.route('/twitter_verification', methods=["GET"])
 @login_required
@@ -133,7 +149,7 @@ def twitter_verification():
     session = Session()
     session.add(oauthtoken)
     session.commit()
-    return redirect(url_for('dashboard.render_dashboard'))
+    return redirect(url_for('dashboard'))
 
 @app.route('/facebook_verification', methods=["GET"])
 @login_required
@@ -156,7 +172,7 @@ def facebook_verification():
     oauthtoken.facebook_key = data
     
     session.commit()
-    return redirect(url_for('dashboard.render_dashboard'))
+    return redirect(url_for('dashboard'))
 
 @app.route('/update/dropbox', methods=["GET"])
 @login_required

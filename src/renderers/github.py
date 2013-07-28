@@ -24,7 +24,7 @@ def get_gh_entry(repo_id):
                 },
             })
     return json.dumps({'type' : 'text',
-            'color' : '000000',
+            'color' : '#000000',
             'channel' : 'Github',
             'title' : repo.gh_repo,
             'text' : '%s pushed with message %s' % (entry.user_pushed, entry.message),

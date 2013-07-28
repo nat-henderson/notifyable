@@ -3,6 +3,7 @@ import datetime
 import time
 from models import GithubRepo
 from models import GithubRepoEvent
+from github import Github
 
 class GithubReaderDaemon(APIReaderDaemon):
     def __init__(self, **kwargs):
