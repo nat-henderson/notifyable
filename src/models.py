@@ -39,6 +39,16 @@ class Tweet(db.Model):
     tweeted_by = db.Column(db.String(255))
     profile_pic = db.Column(db.String(255))
 
+    def __init__(self, tweet_text, tweeted_by, profile_pic = None, pic_url = None):
+        self.tweet_text = tweet_text;
+        self.tweeted_by = tweeted_by;
+        self.profile_pic = profile_pic;
+        self.pic_url = pic_url;
+
+    def add_tweet(self):
+        db.session.add(self)
+        db.session.commit()
+
 
 class Endpoint(object):
     def __init__(self, name, endpoint, db_table, relevance_filter = None):
