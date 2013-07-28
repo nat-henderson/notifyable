@@ -26,6 +26,9 @@ class FacebookReader(APIReaderDaemon):
         while True:
             for token in self.access_tokens:
                 access_token = token.facebook_key
+                fb_user = json.loads(self.get_data(base_url + "/me?access_token="+access_token))
+                profile_pic = "https://graph.facebook.com/" + fb_user["id"] + "/picture"
+                import ipdb;ipdb.set_trace()
                 user_id = token.user_id
                 posts = None
                 if user_id in self.pagination_next:
@@ -41,7 +44,7 @@ class FacebookReader(APIReaderDaemon):
                     picture = None
                     if("picture" in post.keys()):
                         picture = post["picture"]
-                    entry = Status(status, from_name, user_id, pic_url=picture)
+                    entry = Status(status, from_name, user_id, profile_pic=profile_pic, pic_url=picture)
                     self.session.add(entry)
             self.session.commit()
             time.sleep(60)
