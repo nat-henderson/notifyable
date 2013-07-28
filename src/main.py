@@ -14,6 +14,9 @@ from sqlalchemyuri import sqlalchemyuri
 import json
 import sys
 from renderers.dashboard import dashboard_renderer
+from flask import request
+import tweepy
+import urllib2
 
 # Create app
 app = Flask(__name__)
@@ -109,7 +112,30 @@ def twitter_verification():
     session = Session()
     session.add(oauthtoken)
     session.commit()
-    return "SOME TEXT"
+    return redirect(url_for('dashboard.render_dashboard'))
+
+@app.route('/facebook_verification', methods=["GET"])
+@login_required
+def facebook_verification():
+    config = json.load(open('config.json'))
+    app_id = str(config["FacebookReader"]["APP_ID"])
+    app_secret = str(config["FacebookReader"]["APP_SECRET"])
+    verification_code=request.args["code"]
+    redirect_url = str(config["FacebookReader"]["REDIRECT_URL"])
+    url = "https://graph.facebook.com/oauth/access_token?client_id="+app_id+"&redirect_uri="+redirect_url+"&client_secret="+app_secret+"&code="+verification_code
+
+    req = urllib2.Request(url)
+   
+    response= urllib2.urlopen(req)
+    data=response.read()
+    data = data.replace("access_token=","")
+
+    session = Session()
+    oauthtoken = session.query(OAuthTokens).filter_by(user_id=current_user.id).one()
+    oauthtoken.facebook_key = data
+    
+    session.commit()
+    return redirect(url_for('dashboard.render_dashboard'))
 
 @app.route('/update/dropbox', methods=["GET"])
 @login_required
