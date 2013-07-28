@@ -32,6 +32,7 @@ class RSSFeed(db.Model):
     feed_url = db.Column(db.String(1024))
 
 class Tweet(db.Model):
+    __tablename__ = 'tweet'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     tweet_text = db.Column(db.String(140))
