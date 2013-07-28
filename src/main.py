@@ -79,6 +79,21 @@ def facebook_test():
                     ".com/profile_images/2920991192/957f03ebab5ef48f1363a1378b6a8741_bigger.jpeg", text="Daniel Ge"),
     )
 
+@app.route('/update/dropbox', methods=["GET"])
+@login_required
+def dropbox_test():
+    return jsonify(
+        type="image",
+        color="#0000AA",
+        channel="Instagram",
+        title="Sutro Tower",
+        text="View from the Sunset district in SF",
+        image="https://photos-6.dropbox.com/t/0/AAAEmjbQ2wjPZzAd2u2AwEMCBk4PqR1nvSxdW-XGDUt0pw/12/2869254/jpeg/1024x768/3/1374991200/0/2/2013-07-12%2012.57.23.jpg/wutcx6QeYVbYTts7cHuwmGyNpGz8ve4YSHaN4gZbOqQ",
+        meta=dict(image="https://si0.twimg"
+                        ".com/profile_images/2920991192/957f03ebab5ef48f1363a1378b6a8741_bigger.jpeg",
+                        text="I Am Not Joshua Schwarz"),
+    )
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         if sys.argv[1] == '--create':
