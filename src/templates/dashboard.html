@@ -15,6 +15,11 @@
 
 {% block content %}
     {{ super () }}
+        {%- if renders -%}
+        <div class="row">
+            <button class="btn btn-primary" id="refresh">Refresh</button>
+        </div>
+        {% endif %}
         <div id='channel-container' class="row"
              data-channels='{{ renders }}'>
             {%- if renders -%}

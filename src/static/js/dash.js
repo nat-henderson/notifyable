@@ -2,13 +2,13 @@ $(document).ready(function() {
     var channel_container = $('#channel-container');
 
     // No need to parseJSON this; jQuery already takes care of this
-    var endpoints = channel_container.data('channels');
+    var endpoints = channel_container.data('channels') || {};
     var remaining = _.keys(endpoints).length;
-    var isotope_elements = []
+    var isotope_elements = [];
 
     _.each(endpoints, function(endpoint) {
         $.getJSON(endpoint, function(data){
-            var channel_div = $("<div class='channel'></div>");
+            var channel_div = $("<div class='channel' data-endpoint='" + endpoint + "'></div>");
             channel_div.css('background-color', data['color']);
 
             init_channel(channel_div, data);
@@ -20,14 +20,29 @@ $(document).ready(function() {
                 channel_container.empty();
                 _.each(isotope_elements, function(element) {
                     element.appendTo(channel_container);
-                })
+                });
                 channel_container.isotope({
                     itemSelector: '.channel',
                     layoutMode: 'masonry'
-                })
+                });
             }
         });
     });
+
+    var refresh_endpoints = function() {
+        _.each(channel_container.children(), function(element) {
+            var endpoint = element.data('endpoint');
+            $.getJSON(endpoint, function(data){
+                var channel_div = $("<div class='channel'></div>");
+                channel_div.css('background-color', data['color']);
+
+                init_channel(channel_div, data);
+                element.replaceWith(channel_div);
+                channel_container.isotope('reLayout');
+            });
+        });
+    };
+    $('#refresh').click(refresh_endpoints);
 
     function init_channel(root, data) {
         root.css('background-color', data['color']);
