@@ -1,7 +1,11 @@
 from api_readers.api_reader_daemon import APIReaderDaemon
 import tweepy
 from tweepy.streaming import StreamListener
+from tweepy.utils import import_simplejson
 from tweepy import Stream
+from models import Tweet
+
+json = import_simplejson()
 
 class TwitterReader(APIReaderDaemon):
     consumer_key = "E4TdVoiMVYf44Lvq8KXw"
@@ -15,7 +19,7 @@ class TwitterReader(APIReaderDaemon):
     def start(self):
         auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
         auth.set_access_token(self.key, self.secret)
-        listener = StdOutListener()
+        listener = TweetListener()
         self.stream = Stream(auth, listener)
         self.stream.userstream()
 
@@ -25,15 +29,11 @@ class TwitterReader(APIReaderDaemon):
         self.stream.disconnect()
 
 
-
-class StdOutListener(StreamListener):
-    """ A listener handles tweets are the received from the stream.
-    This is a basic listener that just prints received tweets to stdout.
-
-    """
+class TweetListener(StreamListener):
     def on_data(self, data):
-        print data
-        return True
+        json_data = json.loads(data)
+        tweet = Tweet(json_data['text'], json_data['user']['name'])
+        tweet.add_tweet()
 
     def on_error(self, status):
         print status
