@@ -1,16 +1,14 @@
 from flask import Flask, render_template
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask import jsonify
+from flask.ext.assets import Environment
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from flask.ext.security.core import current_user
-from flask.ext.mail import Mail
 from endpoints import endpoints
 from models import db
 from models import *
 from sqlalchemyuri import sqlalchemyuri
-import os
 import json
-import inspect
 import sys
 
 # Create app
@@ -33,6 +31,11 @@ config = json.load(open('config.json'))
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
 
+# Setup Flask to use SCSS
+assets = Environment(app)
+assets.url = app.static_url_path
+
+
 def get_channels_and_endpoints_for_user(user):
     channels = []
     endpoints = []
@@ -54,13 +57,27 @@ def home():
     channels, endpoints = get_channels_and_endpoints_for_user(current_user)
     return render_template('index.html', renderers = zip(channels, endpoints))
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=["GET"])
 @login_required
 def dashboard():
     return render_template('dashboard.html')
 
 for endpoint in endpoints:
     app.register_blueprint(endpoint.blueprint)
+
+@app.route('/update/facebook', methods=["GET"])
+@login_required
+def facebook_test():
+    return jsonify(
+        type="text",
+        color="#FF0000",
+        channel="Facebook",
+        title="title",
+        text="huzzah! This is very long text. Let's see how long I can go just " +
+             "babbling on. Yeah, point of this is to stress-test our front-end JS.",
+        meta=dict(image="https://si0.twimg"
+                    ".com/profile_images/2920991192/957f03ebab5ef48f1363a1378b6a8741_bigger.jpeg", text="Daniel Ge"),
+    )
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
