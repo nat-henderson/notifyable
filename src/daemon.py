@@ -1,19 +1,20 @@
 import inspect
 import api_readers
-from api_readers import APIReaderDaemon
 from api_readers import *
+from api_readers.api_reader_daemon import APIReaderDaemon
 import json
 
 config = json.load(open('config.json'))
 
-class APIReaderDaemon(object):
+class MainDaemon(object):
     def __init__(self):
         self.daemons = []
         print 'discovering daemons...'
-        for name, daemon_class in inspect.getmembers(api_readers, inspect.ismodule):
-            if APIReaderDaemon in daemon_class.mro():
-                print 'discovered ' + str(name)
-                self.daemons.append(APIReaderDaemon(config[name]))
+        for _, daemon_module in inspect.getmembers(api_readers, inspect.ismodule):
+            for name, daemon_class in inspect.getmembers(daemon_module, inspect.isclass):
+                if issubclass(daemon_class, APIReaderDaemon):
+                    print 'discovered ' + str(name)
+                    self.daemons.append(daemon_class(config[name]))
 
     def setup(self):
         print 'starting daemons ...'
@@ -39,4 +40,4 @@ class APIReaderDaemon(object):
             self.cleanup()
 
 if __name__ == "__main__":
-    APIReaderDaemon().start()
+    MainDaemon().start()
