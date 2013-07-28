@@ -4,10 +4,11 @@ import urllib2
 import json
 import time
 from models import Status
+from models import OAuthTokens
+from models import Session
 
 class FacebookReader(APIReaderDaemon):
-    #testing on a hard-coded access_token
-    access_tokens = ["CAAT4W0M4Xq8BAEqKediuZCztZC5XBrTlHJY0ZBVW9xuZB07lHlMKZAHHq1TsjBIyA69fMAsi6DscYJzY0v0KqWQzncvWc6wSXldexfMmatsnenBONetHXZAqoabmPIRwWEX6F86XiAMEorcHmNyRXIZCw2hUZBhhMZAgZD"]
+    access_tokens = []
     pagination_next = {}
 
     def get_data(self, url):
@@ -23,8 +24,9 @@ class FacebookReader(APIReaderDaemon):
     def start(self):
         base_url = "https://graph.facebook.com"
         while True:
-            for access_token in self.access_tokens:
-                user_id = int(json.loads(self.get_data(base_url + "/me?access_token="+access_token))["id"])
+            for token in self.access_tokens:
+                access_token = token.facebook_key
+                user_id = token.user_id
                 posts = None
                 if user_id in self.pagination_next:
                     posts = json.loads(self.get_data(self.pagination_next[user_id]))
@@ -49,7 +51,9 @@ class FacebookReader(APIReaderDaemon):
         pass
 
     def __init__(self, **kwargs):
-        pass
+        session = Session()
+        tokens = session.query(OAuthTokens).all()
+        self.access_tokens = tokens
 
 
 if __name__=="__main__":
