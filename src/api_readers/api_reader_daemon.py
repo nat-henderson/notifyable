@@ -1,15 +1,13 @@
-from models import db
+from models import Session
 
 # Base class for all the daemons
 class APIReaderDaemon(object):
-    session = db.session
-    def __init__(self, **kwargs):
-        raise NotImplemented
+    session = Session()
     def start(self):
-        raise NotImplemented
+        raise NotImplementedError()
     def stop(self):
-        raise NotImplemented
+        raise NotImplementedError()
     def new_data_received(self, data):
-        raise NotImplemented
+        raise NotImplementedError()
     def add_to_db(self, data):
-        raise NotImplemented
+        raise NotImplementedError()

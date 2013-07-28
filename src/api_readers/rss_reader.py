@@ -16,8 +16,8 @@ class RSSReaderDaemon(APIReaderDaemon):
             read_feed = feedparser.parse(feed.feed_url)
             entry = RSSEntry(feed.feed_id, read_feed.entries[0].title,
                     read_feed.entries[0].description, read_feed.published_parsed)
-            session.add(entry)
-        session.commit()
+            self.session.add(entry)
+        self.session.commit()
         while True:
             for feed in feeds_to_read:
                 read_feed = feedparser.parse(feed.feed_url)
@@ -25,8 +25,8 @@ class RSSReaderDaemon(APIReaderDaemon):
                 if read_feed.entries[0].published_parsed > sixty_seconds_ago:
                     entry = RSSEntry(feed.feed_id, read_feed.entries[0].title,
                             read_feed.entries[0].description, read_feed.published_parsed)
-                    session.add(entry)
-            session.commit()
+                    self.session.add(entry)
+            self.session.commit()
             time.sleep(60)
 
     def stop(self):

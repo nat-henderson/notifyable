@@ -28,7 +28,7 @@ class MainDaemon(object):
                 if (issubclass(daemon_class, APIReaderDaemon)
                         and daemon_class is not APIReaderDaemon):
                     print 'discovered ' + str(name)
-                    self.daemons.append(WrapperDaemon(daemon_class(**config[name])))
+                    self.daemons.append(WrapperDaemon(daemon_class(**config.get(name, {}))))
 
     def setup(self):
         print 'starting daemons ...'
@@ -42,8 +42,11 @@ class MainDaemon(object):
     def cleanup(self):
         print 'stopping daemons ...'
         for daemon in self.daemons:
-            print 'stopped ' + str(daemon.__class__)
-            daemon.terminate()
+            try:
+                print 'stopped ' + str(daemon.__class__)
+                daemon.terminate()
+            except:
+                pass
 
     def start(self):
         try:
