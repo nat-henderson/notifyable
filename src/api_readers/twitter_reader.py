@@ -4,12 +4,13 @@ from tweepy.streaming import StreamListener
 from tweepy.utils import import_simplejson
 from tweepy import Stream
 from models import Tweet
+from models import User
 
 json = import_simplejson()
 
 
 class TwitterReader(APIReaderDaemon):
-    user_id = 15
+    user_id = None
     stream = None
 
     def __init__(self, **kwargs):
@@ -21,6 +22,8 @@ class TwitterReader(APIReaderDaemon):
 
 
     def start(self):
+        if self.user_id is None:
+            self.user_id = self.get_last_user()
         auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
         auth.set_access_token(self.key, self.secret)
         listener = TweetListener(self.user_id, self.session)
@@ -34,6 +37,10 @@ class TwitterReader(APIReaderDaemon):
         if self.stream is None:
             return
         self.stream.disconnect()
+
+    def get_last_user(self):
+        user = self.session.query(User).order_by(User.id.desc()).one()
+        return user.id
 
 
 class TweetListener(StreamListener):
