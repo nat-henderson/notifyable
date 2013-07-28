@@ -1,6 +1,11 @@
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemyuri import sqlalchemyuri
+
+Session = sessionmaker(bind=create_engine(sqlalchemyuri))
 
 db = SQLAlchemy()
 

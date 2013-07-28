@@ -7,6 +7,7 @@ from flask.ext.mail import Mail
 from endpoints import endpoints
 from models import db
 from models import *
+from sqlalchemyuri import sqlalchemyuri
 import os
 import json
 import inspect
@@ -16,8 +17,7 @@ import sys
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'SEEEEEEEKRIT'
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = sqlalchemyuri
 app.config['SECURITY_REGISTERABLE'] = True
 app.config['SECURITY_RECOVERABLE'] = True
 app.config['SECUTIY_CHANGEABLE'] = True
