@@ -2,8 +2,8 @@ $(document).ready(function() {
     var channel_container = $('#channel-container');
 
     // No need to parseJSON this; jQuery already takes care of this
-    var endpoints = channel_container.data('channels') || {};
-    var remaining = _.keys(endpoints).length;
+    var endpoints = channel_container.data('channels') || [];
+    var remaining = endpoints.length;
     var isotope_elements = [];
 
     _.each(endpoints, function(endpoint) {
@@ -32,7 +32,8 @@ $(document).ready(function() {
     });
 
     var refresh_endpoints = function() {
-        _.each(channel_container.children(), function(element) {
+        channel_container.children().each(function(i, element) {
+            var element = $(element);
             var endpoint = element.data('endpoint');
             $.getJSON(endpoint, function(data){
                 var channel_div = $("<div class='channel'></div>");

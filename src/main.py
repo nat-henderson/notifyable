@@ -76,8 +76,7 @@ def home():
 @login_required
 def dashboard():
     channels, endpoints = get_channels_and_endpoints_for_user(current_user)
-    return render_template('dashboard.html',
-                           renderers=json.dumps(dict(zip(channels, endpoints))))
+    return render_template('dashboard.html', renderers=json.dumps(endpoints))
 
 for endpoint in endpoints:
     app.register_blueprint(endpoint.blueprint)
