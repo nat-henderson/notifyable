@@ -9,6 +9,6 @@
         "APP_ID" : "1398970760322735",
         "APP_SECRET" : "eee97fc2ad0ae9666a6f178932a09893",
         "SCOPE" : "read_stream",
-        "REDIRECT_URL" : "http://amagit.com:5000/facebook_verification"
+        "REDIRECT_URL" : "http://notify.dge.io.com/facebook_verification"
     }
 }
