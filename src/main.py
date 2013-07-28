@@ -12,6 +12,7 @@ from models import *
 from sqlalchemyuri import sqlalchemyuri
 import json
 import sys
+from renderers.dashboard import dashboard_renderer
 
 # Create app
 app = Flask(__name__)
@@ -69,6 +70,7 @@ def dashboard():
 
 for endpoint in endpoints:
     app.register_blueprint(endpoint.blueprint)
+app.register_blueprint(dashboard_renderer)
 
 @app.route('/update/facebook', methods=["GET"])
 @login_required

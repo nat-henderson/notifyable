@@ -13,6 +13,5 @@ class Endpoint(object):
 
 endpoints = [
     Endpoint('RSS', '/rss/%i', rss_renderer, RSSFeed, lambda x: True),
-    Endpoint('DashBoard', '/dashboard/%i', dashboard_renderer, User, lambda x: True),
     Endpoint('Github', '/github/%i', gh_renderer, GithubRepo, lambda x:True),
 ]
