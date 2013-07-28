@@ -14,32 +14,32 @@ class TwitterReader(APIReaderDaemon):
 
     key = "1626313634-H01bjk5cH4YIYjlI5QF25h799YG3F9rnWpg2ykm"
     secret = "jTtwH8ixH1ImbmAMMyCWTwzYU928m4k40DRFwLe2coQ"
-    user_id = 1
+    user_id = 15
 
     stream = None
 
-    def __init__(self, config=None):
-        if config is None:
+    def __init__(self, **kwargs):
+        if kwargs is None:
             return
-        self.consumer_key = config['consumer_key']
-        self.consumer_secret = config['consumer_secret']
-        self.key = config['key']
-        self.secret = config['secret']
-        self.user_id = config['user_id']
+        self.consumer_key = kwargs['CONSUMER_KEY']
+        self.consumer_secret = kwargs['CONSUMER_SECRET']
+        self.key = kwargs['KEY']
+        self.secret = kwargs['SECRET']
+        self.user_id = kwargs['USER_ID']
 
 
-def start(self):
-    auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
-    auth.set_access_token(self.key, self.secret)
-    listener = TweetListener()
-    self.stream = Stream(auth, listener)
-    self.stream.userstream()
+    def start(self):
+        auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
+        auth.set_access_token(self.key, self.secret)
+        listener = TweetListener()
+        self.stream = Stream(auth, listener)
+        self.stream.userstream()
 
 
-def stop(self):
-    if self.stream is None:
-        return
-    self.stream.disconnect()
+    def stop(self):
+        if self.stream is None:
+            return
+        self.stream.disconnect()
 
 
 class TweetListener(StreamListener):
@@ -49,7 +49,7 @@ class TweetListener(StreamListener):
         tweet.add_tweet()
 
     def on_error(self, status):
-        print(status)
+        print status
 
 
 if __name__ == "__main__":

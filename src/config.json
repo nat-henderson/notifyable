@@ -1,11 +1,10 @@
 {
-    "twitter":
+    "TwitterReader":
     {
-    "CONSUMER_KEY" : "H8dkaG4d02PxLG6ft4LsQ",
-    "CONSUMER_SECRET" : "EzZk4LV8S3yxCLSoOmX2a3PtTNvsmMp2btz2sNgzPY",
-
-    "REQUEST_TOKEN_URL" : "https://api.twitter.com/oauth/request_token",
-    "AUTHORIZE_URL" : "https://api.twitter.com/oauth/authorize",
-    "ACCESS_TOKEN_URL" : "https://api.twitter.com/oauth/access_token"
+    "CONSUMER_KEY" : "E4TdVoiMVYf44Lvq8KXw",
+    "CONSUMER_SECRET" : "4xzOk0EvhcDcfBPQ0mJU4PwSeXVNWfOE5sifz4XZ0",
+    "KEY" : "1626313634-H01bjk5cH4YIYjlI5QF25h799YG3F9rnWpg2ykm",
+    "SECRET" : "jTtwH8ixH1ImbmAMMyCWTwzYU928m4k40DRFwLe2coQ",
+    "USER_ID": "1"
     }
 }
