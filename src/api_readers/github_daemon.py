@@ -28,7 +28,7 @@ class GithubReaderDaemon(APIReaderDaemon):
                 except:
                     continue
             self.session.commit()
-            time.sleep(60)
+            time.sleep(120)
 
     def stop(self):
         # or whatever
