@@ -1,6 +1,7 @@
 import inspect
 from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.assets import Environment, Bundle
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from flask.ext.security.core import current_user
@@ -33,6 +34,11 @@ config = json.load(open('config.json'))
 # Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
+
+# Setup Flask to use SCSS
+assets = Environment(app)
+assets.url = app.static_url_path
+
 
 def get_channels_and_endpoints_for_user(user):
     channels = []
