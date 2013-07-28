@@ -14,10 +14,15 @@ def get_tweet():
     tweet = get_last_tweet(current_user.id)
 
     return json.dumps({'type' : 'text',
-            'tweet_text' : tweet.text,
-            'tweeted_by' : tweet.author.name,
-            'image_url' : get_image(tweet),
-            'profile_pic': tweet.user.profile_image_url
+            'color' : '000000',
+            'channel' : 'Twitter',
+            'title' : tweet.author.name,
+            'text' : tweet.text,
+            'image' : tweet.user.profile_image_url,
+            'meta' : {
+                'text' : 'Twitter!',
+                'image' : tweet.user.profile_image_url
+            },
         })
 
 def get_last_tweet(user_id):
