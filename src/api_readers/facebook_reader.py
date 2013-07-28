@@ -6,7 +6,7 @@ import json
 class FacebookReader(APIReaderDaemon):
     APP_ID = "1398970760322735"
     APP_SECRET = "eee97fc2ad0ae9666a6f178932a09893"
-    REDIRECT_URL = "http://amagit.com:5000/"
+    REDIRECT_URL = "FILL_THIS_IN"
     SCOPE = ""
 
     access_token = 'CAAT4W0M4Xq8BAEr2XZApp0zNd9pdOMHe0QW6X7feflCvFPXqAlnV4ZAnoT7LTkQC8qFEfrzl92UIRvZBruZATlzofd5DaLrmHgKbpMUKTydqzcNXUiVu0SXpkfO4jro0deE0wiOtOzkg0Kz7w9Q89NHcq3mdSvUZD'
