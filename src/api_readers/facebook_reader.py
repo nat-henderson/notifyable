@@ -38,7 +38,11 @@ class FacebookReader(APIReaderDaemon):
                     self.pagination_next[user_id] = posts["paging"]["next"]
                 posts = posts["data"]
                 for post in posts:
-                    status = post["story"]
+                    status = post.get("story")
+                    if not status:
+                        status = post.get("message")
+                        if not status:
+                            continue
                     from_name = post["from"]["name"]
                     picture = None
                     if("picture" in post.keys()):
