@@ -15,6 +15,7 @@ from sqlalchemyuri import sqlalchemyuri
 import json
 import sys
 from renderers.dashboard import dashboard_renderer
+from renderers.tweet import tweet_renderer
 from flask import request
 import tweepy
 import urllib2
@@ -79,6 +80,7 @@ def dashboard():
 for endpoint in endpoints:
     app.register_blueprint(endpoint.blueprint)
 app.register_blueprint(dashboard_renderer)
+app.register_blueprint(tweet_renderer)
 
 @app.route('/update/facebook', methods=["GET"])
 @login_required
