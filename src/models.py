@@ -38,6 +38,14 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
+class OAuthTokens(db.Model):
+    __tablename__ = 'oauthtokens'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    twitter_key = db.Column(db.String(255), nullable=True)
+    twitter_secret = db.Column(db.String(255), nullable=True)
+    facebook_key = db.Column(db.String(255), nullable=True)
+
 class RSSFeed(db.Model):
     __tablename__ = 'rssfeeds'
     id = db.Column(db.Integer, primary_key = True)

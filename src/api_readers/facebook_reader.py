@@ -2,6 +2,7 @@ from api_readers.api_reader_daemon import APIReaderDaemon
 import random
 import urllib2
 import json
+import time
 from models import Status
 
 class FacebookReader(APIReaderDaemon):
@@ -39,7 +40,8 @@ class FacebookReader(APIReaderDaemon):
                     posts = json.loads(self.get_data(self.pagination_next[user_id]))
                 else:
                     posts = json.loads(self.get_data(base_url + "/me/feed?access_token="+access_token))
-                self.pagination_next[user_id] = posts["paging"]["next"]
+                if "paging" in posts.keys():
+                    self.pagination_next[user_id] = posts["paging"]["next"]
                 posts = posts["data"]
                 for post in posts:
                     status = post["story"]
@@ -51,6 +53,7 @@ class FacebookReader(APIReaderDaemon):
                     import ipdb; ipdb.set_trace()
                     self.session.add(entry)
             self.session.commit()
+            time.sleep(60)
 
     def stop(self):
         pass
