@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}Add Github Repo{% endblock %}
+{% block content %}
+
+<form method=get action="/add_github_repo_to_db">
+  Add User: <input type = "text" name = "github_user"/>
+  Add Feed: <input type = "text" name = "github_url"/>
+  <input type=submit value="Add Repo">
+</form>
+
+{% endblock %}
