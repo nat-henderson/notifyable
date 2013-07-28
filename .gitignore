@@ -40,3 +40,7 @@ src/app.db
 # SCSS
 gen/
 .webassets-cache/
+
+include/
+*.iml
+.Python
