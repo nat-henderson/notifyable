@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}OAuth Token Fetch{% endblock %}
+{% block content %}
+{% if twitter_url %}
+To Authorize this app to use your twitter data please click <a target="_blank" href={{twitter_url}}>here</a>
+
+<form method=get action="/twitter_verification">
+  The Verification code:<input type = "text" name = "verification_code"/>
+  <input type=submit value="Submit code">
+</form>
+
+{% endif %}
+Just Some random text
+{% endblock %}
