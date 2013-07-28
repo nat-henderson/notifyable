@@ -2,9 +2,7 @@
     "TwitterReader":
     {
         "CONSUMER_KEY" : "E4TdVoiMVYf44Lvq8KXw",
-        "CONSUMER_SECRET" : "4xzOk0EvhcDcfBPQ0mJU4PwSeXVNWfOE5sifz4XZ0",
-        "KEY" : "1626313634-dnDqYB0nMwxwTE6DsGPBlvT89FIA3Opau5poDUe",
-        "SECRET" : "QrN0bzEmEq9zUxQIcKgUJNCvUJmfV1BTwWwabmrIW4"
+        "CONSUMER_SECRET" : "4xzOk0EvhcDcfBPQ0mJU4PwSeXVNWfOE5sifz4XZ0"
     },
     "FacebookReader":
     {

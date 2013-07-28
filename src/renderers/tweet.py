@@ -11,13 +11,6 @@ tweet_renderer = Blueprint('tweets', __name__)
 @tweet_renderer.route('/tweets')
 @login_required
 def get_tweet():
-    # tweet = Session().query(Tweet).filter_by(user_id=user_id).order_by(Tweet.id.desc()).one()
-    # return json.dumps({'type' : 'text',
-    #         'tweet_text' : tweet.tweet_text,
-    #         'tweeted_by' : tweet.tweeted_by,
-    #         'image_url' : tweet.pic_url,
-    #         'profile_pic': tweet.profile_pic
-    #     })
     tweet = get_last_tweet(current_user.id)
 
     return json.dumps({'type' : 'text',
